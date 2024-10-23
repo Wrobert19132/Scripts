@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+# Launches an incredibly simple script to mount an encrypted partition.
+
+kitty --name floatcat ~/Scripts/.script-repo/decrypt/decrypt.sh
+

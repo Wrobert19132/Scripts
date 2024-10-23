@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+# Launches a UI for a backup script.
+
+kitty --name floatcat ~/Scripts/.script-repo/backup/backup-wrapper.sh

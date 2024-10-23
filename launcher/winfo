@@ -1,0 +1,8 @@
+#! /bin/env bash
+
+# Grabs the xprop output for a window, and copies it to the clipboard.
+
+xprop | cb copy 
+
+
+

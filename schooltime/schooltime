@@ -1,0 +1,136 @@
+#! /bin/env python
+
+# This is a script for displaying a user's age and what school year they would be in. 
+# I created it as a quick utility for mentally dating old files while  sorting some old
+# photos.
+#
+# The script can be applied to anyone... assuming they went through education the exact 
+# same way I did. It doesn't account for gap years, university courses with a length of
+# more than 3 years, etc.
+
+
+
+import datetime
+import argparse
+import os
+
+SCHOOL_AGE = 4
+
+ACADEMIC_START_MONTH = 9
+
+env_birthdate = os.environ.get("BIRTHDAY")
+
+
+# We use this instead of a simple strptime to allow for entries like 
+# "03" - we mean 2003, not the year 3.
+def parse_date(date_str):
+    date_split = date_str.split("/")
+
+    return datetime.date(
+        year=int(date_split[-1]) if len(date_split[-1]) == 4 else int(date_split[-1]) + 2000,
+        month=1,
+        day=1,
+        #month=int(date[-2]) if len(date) > 1 else 1,
+        #day=int(date[-2]) if len(date) > 2 else 1
+    )
+
+
+def find_school_start(birthdate):
+    if birthdate.month < ACADEMIC_START_MONTH:
+        return datetime.date(year=birthdate.year + SCHOOL_AGE, month=ACADEMIC_START_MONTH, day=1)
+    else:
+        return datetime.date(year=birthdate.year + SCHOOL_AGE + 1, month=ACADEMIC_START_MONTH, day=1)
+
+
+# We have to iterate over the years manually - the datetime module
+# does not have a 'years' for timedeltas, because of leap years.
+# This can be fixed with an external module, but.. this is a tiny
+# script, I don't really want to add dependencies. 
+def years_since_school_start(school_start, date):
+    years_in_school = 0 
+    current_school_year = school_start
+
+    date_after_school = school_start < date
+
+    if not date_after_school:
+        years_in_school += 1
+
+    while (current_school_year < date and date_after_school) or (current_school_year > date and not date_after_school):
+        years_in_school += (1 if date_after_school else -1)
+
+        current_school_year = datetime.date(year=current_school_year.year + (1 if date_after_school else -1), month=ACADEMIC_START_MONTH, day=1)
+
+    return years_in_school
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+                        prog='TimeEstimator',
+                        description='A script used to ',
+                        epilog='Text at the bottom of help')
+
+    parser.add_argument("-b", "--birthdate",
+                        default=env_birthdate
+    )
+
+    parser.add_argument("-d", "--date",
+    )
+
+
+    args, unknown = parser.parse_known_args()
+    
+
+
+    if env_birthdate == None:
+        print("Birthdate not set - set a birthdate with -b, or the environment variable BIRTHDAY.")
+        exit(-1)
+    if args.date is None and len(unknown) == 0:
+        print("Date not set - this script requires a date to function. pass a date with -d.")
+        exit(-1)
+
+    birthdate = datetime.datetime.strptime(args.birthdate, "%d/%m/%Y").date()
+    date = parse_date(args.date or unknown[0])
+
+    return birthdate, date
+
+def display_year_info(birthdate, date):
+
+    school_start = find_school_start(birthdate)
+    years_in_school = years_since_school_start(school_start, date)
+
+    print(f"In {date.year}-{date.year+1}, you were", end="")
+
+    match years_in_school:
+        case year if year < 0:
+            print(f"n't in school yet: you had {abs(year)} more years until that.")
+        case 0:
+            print(" in primary school, in year R.")
+        case year if year <= 2:
+            print(f" in primary school, in year {year}.")
+        case year if year <= 6:
+            print(f" in junior school, in year {year}.")
+        case year if year <= 11:
+            print(f" in secondary school, in year {year}.")
+        case year if year <= 13:
+            print(f" at college, in year {year-11}.")
+        case year if year <= 16:
+            print(f" at uni, in year {year-13}.")
+        case _:
+            print(f" out of uni. You finished {year-17} years ago.")
+
+
+    age = date.year - birthdate.year - 1 # This is your age at the start of the year.
+    
+    if age == -1:
+        print(f"You were born in {birthdate.year}.")
+    else:
+        print(f"You were {age} at the start of the year, and {age+1} at the end.")
+
+
+def main():
+    birthdate, date = parse_args()
+    display_year_info(birthdate, date)
+
+
+if __name__ == "__main__":
+    main()

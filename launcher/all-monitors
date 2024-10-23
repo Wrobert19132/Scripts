@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+# Turns on all of my monitors. Used in conjunction with single-monitor.
+
+xrandr --output DP-4 --primary --mode 1920x1080 --pos 1920x1024 --rate 144 --rotate normal --output DP-2 --mode 1920x1080 --pos 3840x1024 --rate 60 --rotate normal --output DP-1 --mode 1920x1080 --pos 0x1024 --rate 60 --rotate normal --output HDMI-0 --mode 1280x1024 --pos 1202x0 --rate 60 --rotate normal

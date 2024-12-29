@@ -81,7 +81,7 @@ def parse_args():
     
 
 
-    if env_birthdate == None:
+    if args.birthdate == None:
         print("Birthdate not set - set a birthdate with -b, or the environment variable BIRTHDAY.")
         exit(-1)
     if args.date is None and len(unknown) == 0:

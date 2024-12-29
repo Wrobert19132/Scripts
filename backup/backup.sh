@@ -1,4 +1,4 @@
-#! /bin/env bash
+#!/usr/bin/env bash
 
 # This script is responsible for incrementally backing up my computer to an external 
 # hard drive. It uses rsync to handle these backups in a somewhat similar way to 
@@ -29,7 +29,7 @@ SOURCES=('/home/moondog/Archive' '/home/moondog/Binaries' '/home/moondog/Documen
          
          '/home/moondog/.bones' 
          
-         '/home/moondog/.local/share/PrismReal' '/home/moondog/.local/share/Terraria'
+         '/home/moondog/.local/share/PrismReal' 
          
          '/home/moondog/.config/eww' '/home/moondog/.config/qtile' 
          '/home/moondog/.config/picom' 
@@ -45,9 +45,7 @@ DESTINATION="$BACKUP_FOLDER/$BACKUP_NAME"
 
 underline=$(tput smul)
 normalline=$(tput rmul)
-red=$(tput setaf 1)
-reset_colour=$(tput setaf 9)
-
+red=$(tput setaf 1)/home/moondog/Sync/GameData/Terraria/
 mkdir "$DESTINATION"
 
 for ((i = 0; i < ${#SOURCES[@]}; i++)); do

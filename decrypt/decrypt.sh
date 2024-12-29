@@ -1,4 +1,4 @@
-#! /bin/env bash
+#!/usr/bin/env bash
 
 # An incredibly simple script to mount an encrypted partition.
 

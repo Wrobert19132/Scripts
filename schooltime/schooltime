@@ -1,4 +1,4 @@
-#! /bin/env python
+#!/usr/bin/env python3
 
 # This is a script for displaying a user's age and what school year they would be in. 
 # I created it as a quick utility for mentally dating old files while  sorting some old

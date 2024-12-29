@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cd $1
+script=$2
+
+if [[ -n "${script}" ]]; then
+    . $script 
+fi

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Launches an incredibly simple script to mount an encrypted partition.
+
+kitty --name floatcat "$PWD/.script-repo/rebuild/rebuild.sh"

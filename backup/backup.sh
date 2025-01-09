@@ -23,16 +23,11 @@ fi
 
 
 
-SOURCES=('/home/moondog/Archive' '/home/moondog/Binaries' '/home/moondog/Documents' 
-         '/home/moondog/Pictures' '/home/moondog/Projects' '/home/moondog/Scripts' 
-         '/home/moondog/Sync' 
+SOURCES=('/home/moondog/Archive' '/home/moondog/Hosted' '/home/moondog/GameData' 
+         '/home/moondog/Pictures' '/home/moondog/Vitals' '/home/moondog/Projects' 
+         '/home/moondog/Documents'  
          
          '/home/moondog/.bones' 
-         
-         '/home/moondog/.local/share/PrismReal' 
-         
-         '/home/moondog/.config/eww' '/home/moondog/.config/qtile' 
-         '/home/moondog/.config/picom' 
 )
 
 
@@ -45,7 +40,9 @@ DESTINATION="$BACKUP_FOLDER/$BACKUP_NAME"
 
 underline=$(tput smul)
 normalline=$(tput rmul)
-red=$(tput setaf 1)/home/moondog/Sync/GameData/Terraria/
+red=$(tput setaf 1)
+reset_colour=$(tput setaf 9)
+
 mkdir "$DESTINATION"
 
 for ((i = 0; i < ${#SOURCES[@]}; i++)); do

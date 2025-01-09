@@ -1,11 +1,11 @@
-#! /bin/env bash
+#!/usr/bin/env bash
 
 
 # Provides an *incredibly* simple UI for my incremental backup script.
 
 
 BACKUP_LOCATION="/run/media/moondog/496b652c-cd74-4b49-90ff-30b78dbe7f08"
-SCRIPT_LOCATION="Scripts/.script-repo/backup/backup.sh"
+SCRIPT_LOCATION=".script-repo/backup/backup.sh"
 
 
 red='\033[0;31m' 
@@ -13,8 +13,7 @@ green='\033[0;32m'
 colour_reset='\033[0m'
 
 
-figlet -f /usr/share/figlet/fonts/big.flf "Manual  Backup"
-
+figlet -f big "Manual  Backup"
 
 echo -n "Backup Location: "
 if [ ! -d "$BACKUP_LOCATION" ]; then

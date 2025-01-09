@@ -2,5 +2,5 @@
 
 # Launches an incredibly simple script to mount an encrypted partition.
 
-kitty --name floatcat ~/Scripts/.script-repo/decrypt/decrypt.sh
+kitty --name floatcat "$PWD/.script-repo/decrypt/decrypt.sh"
 
